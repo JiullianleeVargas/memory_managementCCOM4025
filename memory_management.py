@@ -10,9 +10,11 @@ class Memory:
     
     # base address for vector (simulation)
     baseAddress = int(0)
+
     
     # Initializing the matrix with random values
     def __init__(self):
+        print( "Initializing")
         #  initializing rows and columns for a 10x10 matrix
         rows, cols = (10, 10)
         
@@ -24,7 +26,7 @@ class Memory:
         
         # Filling the vector in row major order with the values of the matrix
         self.rowMajorOrder()
-
+        
     
     #  Get the index in the vector  of the provided cell from the matrix
     def getIndexVector(self, r, c):
@@ -58,14 +60,15 @@ class Memory:
         print("Matrix")
         self.rowMajorOrder()
         for row in self.matrix:
-            print(" ".join(["%5d" % val for val in row]))
+            print(" ".join(["%4d" % val for val in row]))
         print("\n")
          
     # Print vector   
     def printVector(self):
         print("Vector - Memory representation of the Matrix")
         self.rowMajorOrder()
-        print(" ".join(["%4d" % val for val in self.memoryVector]))
+        for val in self.memoryVector:
+            print("{:4d}".format(val),  end=" ")  # Using a fixed width of 4 characters
         print("\n")
       
         
@@ -79,6 +82,7 @@ memory = Memory()
 
 # Clear the screen 
 os.system('cls')
+
 
 # Main menu loop
 while True:
@@ -127,7 +131,7 @@ while True:
                 os.system('cls')
                 memory.printMatrix()
                 memory.printVector()
-                print(f'The element in row {r} and column {c} of the matrix is in the address {memory.getIndexVector(r,c)} of the vector\n1')
+                print(f'The element in row {r} and column {c}, with a value of {memory.matrix[r][c]} of the matrix is in the address {memory.getIndexVector(r,c)} of the vector\n')
             else:
                 os.system('cls')
                 print("Invalid input. Row or column out of range.\n")
@@ -137,27 +141,23 @@ while True:
     
     # Given a row, column and value, replace that value in the matrix, update vector and print them
     # Row, column and value must be integers and within range, if not return an error
+   # Given a row, column and value, replace that value in the matrix, update vector and print them
+# Row, column and value must be integers and within range, if not return an error
     elif choice == '4':
         rows, cols = (10, 10)
         r_input = input("Enter the row: ")
         c_input = input("Enter the column: ")
         v_input = input("Enter the new value: ")
 
-        #  Stripping the input of spaces and making sure is a digit
+        # Stripping the input of spaces and making sure it's a digit
         if r_input.strip().isdigit() and c_input.strip().isdigit() and v_input.strip().isdigit():
-            
-            #  if digit then convert to int
             r = int(r_input)
             c = int(c_input)
             val = int(v_input)
-            
-              #  Verifying if its within range of columns and rows
+
+            # Verifying if it's within the range of columns and rows
             if 0 <= r < rows and 0 <= c < cols:
-                r = int(input("Enter the row: "))
-                c = int(input("Enter the column: "))
-                val = int(input("Enter the new value: "))
                 memory.setValue(r, c, val)
-        
                 os.system('cls')
                 memory.printMatrix()
                 memory.printVector()
@@ -165,8 +165,9 @@ while True:
                 os.system('cls')
                 print("Invalid input. Row or column out of range.\n")
         else:
-            
-            print("Invalid input. Row, column or value should be integers.\n")
+            os.system('cls')
+            print("Invalid input. Row, column, or value should be integers.\n")
+
         
     
         
