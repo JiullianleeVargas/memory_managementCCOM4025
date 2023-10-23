@@ -1,34 +1,35 @@
 import random
 import os
+import time
 
-# Class Memory - functionalities of the kotlin memory management simulation
+#  Clase 
 class Memory:
 
 
     matrix = [[]]
     memoryVector = []
     
-    # base address for vector (simulation)
+    # direccion base para el comienzo del vector
     baseAddress = int(0)
 
     
-    # Initializing the matrix with random values
+    # Inicializando la matriz con valores random
     def __init__(self):
-        print( "Initializing")
-        #  initializing rows and columns for a 10x10 matrix
+        
+        #  inicializando las filas y columnas para una matriz 10*10
         rows, cols = (10, 10)
         
-        #  Initializing the matrix with random integers
+        #  Inicializando matriz con valores random
         self.matrix = [[random.randint(0, 100) for i in range(cols)] for j in range(rows)]
         
-        # Initializing the vector (memory) with 0s
+        # Inizializando vector con valores 0
         self.memoryVector = [0] * (rows * cols)
         
-        # Filling the vector in row major order with the values of the matrix
+        # Rellena el vector con los valores de la matriz en forma "row major order"
         self.rowMajorOrder()
         
     
-    #  Get the index in the vector  of the provided cell from the matrix
+    #  Buscar indice en el vector de la celda proveida desde la matriz
     def getIndexVector(self, r, c):
         
         rows, cols = (10, 10)
@@ -41,8 +42,8 @@ class Memory:
         # Address(a[i][j]) = B. A. + (i * n + j) * size   
         
         rows, cols = (10, 10)
-        #  For each row and each column, grab the value in the matrix and store it in the vector with its 
-        # calculated index based on row major order
+        #  Para cada fila y para columna, agarra el valor de la matriz y guardalo en el vector con el indice
+        # calculado mediante row major order
         for row in range(rows):
             for col in range(cols):
                 matrixCellValue = self.matrix[row][col]
@@ -50,12 +51,12 @@ class Memory:
                 self.memoryVector[indexInVector] = matrixCellValue
        
        
-    #  Set a value in the matrix and then update the vector
+    #  Asigna un valor en la matriz y luego actualizalo en el vector
     def setValue(self, r, c, val):
         self.matrix[r][c] = val
         self.rowMajorOrder()
 
-    # Print matrix
+    # Imprime la matriz
     def printMatrix(self):
         print("Matrix")
         self.rowMajorOrder()
@@ -63,7 +64,7 @@ class Memory:
             print(" ".join(["%4d" % val for val in row]))
         print("\n")
          
-    # Print vector   
+    # Imprimir  vector
     def printVector(self):
         print("Vector - Memory representation of the Matrix")
         self.rowMajorOrder()
@@ -77,18 +78,16 @@ class Memory:
     
 #  MAIN
 
-# Instance of the class
+# Instancia de la clase de memoria
 memory = Memory()
-
-# Clear the screen 
 os.system('cls')
 
 
-# Main menu loop
+# menu principal
 while True:
     
    
-#    Always printing the menu
+#    imprimir siempre el menu
     print  ("1. Initialize matrix with random numbers")
     print  ("2. Print the matrix and vector")
     print  ("3. Get 'memory address' of cell in matrix" )
@@ -96,37 +95,39 @@ while True:
     print("0. Exit")
     
     choice = input("Enter your choice: ")
-  
 
-    # Initialize the matrix by adding random ints and updating the vector
+    # Inicializa la matriz y actualiza el vector
     if choice == '1':
-        print("Initialized the matrix\n")
-        memory.__init__()
         os.system('cls')
+        memory.__init__()
         memory.printMatrix()
         memory.printVector()
         
-    # Just printing the matrix and vector
+        
+       
+        
+    # Imprimir vector y matriz
     elif choice == '2':
         os.system('cls')
         memory.printMatrix()
         memory.printVector()
         
-    # Given a row and column from the matrix, return the index in the vector of that cell
-    # Row and column must be integers and within range, if not return an error
+    
+    # Dada una fila y una columna de la matriz, devuelve el indice en el vector de esa celda
+    # Debe ser un entero, si no, da un error
     elif choice == '3':
         rows, cols = (10, 10)
         r_input = input("Enter the row: ")
         c_input = input("Enter the column: ")
 
-        #  Stripping the input of spaces and making sure is a digit
+        #  asegurando que el input no tenga espacios y es un digito
         if r_input.strip().isdigit() and c_input.strip().isdigit():
             
-            #  if digit then convert to int
+            #  si es digito, convierte a numero
             r = int(r_input)
             c = int(c_input)
             
-            #  Verifying if its within range of columns and rows
+            #  verificando si esta dentro del rango 
             if 0 <= r < rows and 0 <= c < cols:
                 os.system('cls')
                 memory.printMatrix()
@@ -135,27 +136,29 @@ while True:
             else:
                 os.system('cls')
                 print("Invalid input. Row or column out of range.\n")
+                memory.printMatrix()
+                memory.printVector()
         else:
             os.system('cls')
             print("Invalid input. Row and column should be integers.\n")
+            memory.printMatrix()
+            memory.printVector()
     
-    # Given a row, column and value, replace that value in the matrix, update vector and print them
-    # Row, column and value must be integers and within range, if not return an error
-   # Given a row, column and value, replace that value in the matrix, update vector and print them
-# Row, column and value must be integers and within range, if not return an error
+  
+  #  Cambiar un valor de la matriz
     elif choice == '4':
         rows, cols = (10, 10)
         r_input = input("Enter the row: ")
         c_input = input("Enter the column: ")
         v_input = input("Enter the new value: ")
 
-        # Stripping the input of spaces and making sure it's a digit
+         #  asegurando que el input no tenga espacios y es un digito
         if r_input.strip().isdigit() and c_input.strip().isdigit() and v_input.strip().isdigit():
             r = int(r_input)
             c = int(c_input)
             val = int(v_input)
 
-            # Verifying if it's within the range of columns and rows
+            # Verificar si esta en rango
             if 0 <= r < rows and 0 <= c < cols:
                 memory.setValue(r, c, val)
                 os.system('cls')
@@ -164,21 +167,24 @@ while True:
             else:
                 os.system('cls')
                 print("Invalid input. Row or column out of range.\n")
+                memory.printMatrix()
+                memory.printVector()
         else:
             os.system('cls')
             print("Invalid input. Row, column, or value should be integers.\n")
+            memory.printMatrix()
+            memory.printVector()
 
-        
-    
         
     elif choice == '0':
         print("You have exited the program\n")
         break
     
-    #  Any other input will cause and error and the clear the screen
+    #  Cualquier otro input va dar un error
     else:
         os.system('cls')
         print("Please enter one of the menu options\n")
+       
         
     
  
