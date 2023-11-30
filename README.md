@@ -18,3 +18,5 @@ The main program creates an instance of the `Memory` class and enters into an in
 0. Exit the program.
 
 The user selects an option from the menu, and the program performs the corresponding action. If the user chooses option 1, the program initializes the matrix with random numbers. If the user selects option 2, the program prints the matrix and the vector. If the user chooses option 3, the program prompts the user for the row and column of a cell in the matrix and then prints the memory address of that cell. If the user selects option 4, the program prompts the user for the row, column, and the value to be set in the matrix, and then it sets the corresponding value in the matrix. If the user chooses option 5, the program exits the infinite loop and terminates.
+
+### Note: For this program to look good, it needs to be executed in an external terminal (shell, bash, cmd, etc)
