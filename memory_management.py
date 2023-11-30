@@ -88,6 +88,8 @@ while True:
     
    
 #    imprimir siempre el menu
+    print("Kotlin Memory Management Simulation")
+    print("Jiullian-Lee Vargas Ruiz\n")
     print  ("1. Initialize matrix with random numbers")
     print  ("2. Print the matrix and vector")
     print  ("3. Get 'memory address' of cell in matrix" )
